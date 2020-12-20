@@ -5,7 +5,8 @@ require('dotenv').config({path: __dirname + '/../.env'});
 const { Pool } = require('pg')
 const pool = new Pool({connectionString:process.env.DATABASE_URL})
 
-const select_query = 'SELECT * FROM customers ORDER BY calculateScore(age, career, diabetes, cancer, heartDisease, pregnancy) DESC, createdDate, createdTime';
+const select_query = 'SELECT * FROM customers ORDER BY ' +
+    'calculateScore(age, career, diabetes, cancer, heartDisease, pregnancy) DESC, createdDate, createdTime';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

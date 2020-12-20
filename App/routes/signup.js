@@ -68,19 +68,16 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   initialize();
-
   username = req.body.username.trim();
   if (username === "" || username === null || username === undefined) {
     emptyErr = true;
     hasErr = true;
   }
-
   nric = req.body.nric.trim();
   if (nric === "" || nric === null || nric === undefined) {
     emptyErr = true;
     hasErr = true;
   }
-
   age = req.body.age;
   if (age === null || age === undefined) {
     emptyErr = true;
@@ -89,35 +86,28 @@ router.post('/', function(req, res, next) {
     ageErr = true;
     hasErr = true;
   }
-
   career = req.body.career;
-
   hasDiabetes = req.body.diabetes;
   if (hasDiabetes === null || hasDiabetes === undefined) {
     emptyErr = true;
     hasErr = true;
   }
-
   hasCancer = req.body.cancer;
   if (hasCancer === null || hasCancer === undefined) {
     emptyErr = true;
     hasErr = true;
   }
-
   hasHeartDisease = req.body.heart_disease;
   if (hasHeartDisease === null || hasHeartDisease === undefined) {
     emptyErr = true;
     hasErr = true;
   }
-
   hasPregnancy = req.body.pregnancy;
   if (hasPregnancy === null || hasPregnancy === undefined) {
     emptyErr = true;
     hasErr = true;
   }
-
   pool.query(key_check_query, [nric], (err, data) => {
-    console.log(err);
     if (data.rows.length <= 0) {
       nricErr = true;
     }
@@ -125,8 +115,8 @@ router.post('/', function(req, res, next) {
       renderPage(res);
     } else {
       var currentDate = new Date();
-      pool.query(insert_query, [username, nric, age, career, getStringDate(currentDate), getStringTime(currentDate), hasDiabetes, hasCancer, hasHeartDisease, hasPregnancy], (err, data) => {
-        console.log(err);
+      pool.query(insert_query, [username, nric, age, career, getStringDate(currentDate),
+        getStringTime(currentDate), hasDiabetes, hasCancer, hasHeartDisease, hasPregnancy], (err, data) => {
         res.redirect('/information/' + nric);
       })
     }
